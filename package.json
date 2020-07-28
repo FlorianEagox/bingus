@@ -1,0 +1,19 @@
+{
+  "name": "bingus",
+  "version": "1.0.0",
+  "description": "Complete authentication and personal information management middleware.",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheFoxarmy/bingus.git"
+  },
+  "author": "Seth Painter, Gabe Frances, Rachel Ooio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheFoxarmy/bingus/issues"
+  },
+  "homepage": "https://github.com/TheFoxarmy/bingus#readme"
+}
