@@ -1,0 +1,3 @@
+[submodule "bingus-frontend"]
+	path = bingus-frontend
+	url = https://github.com/TheFoxarmy/bingus-frontend
