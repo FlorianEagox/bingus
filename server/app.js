@@ -1,25 +1,39 @@
 const express = require('express');
 const morgan = require('morgan');
-const { build, Nuxt } = require('nuxt');
+const cors = require('cors');
+const helment = require('helmet');
+const { Nuxt, Builder } = require('nuxt');
+const nuxtConfig = require('../client/nuxt.config');
 require('dotenv').config();
-const nuxtConfig = require('../nuxt.config');
-nuxtConfig.server.port = process.env.PORT;
+
+
+nuxtConfig.dev = process.env.NODE_ENV !== 'production';
+nuxtConfig.srcDir = 'client';
+nuxtConfig.buildDir = 'client/.nuxt';
+
 const app = express();
 
-app.use(morgan());
-async function initNuxt() {
-	const nuxt = await new Nuxt();
-	app.use(nuxt.render);
+app.use(morgan('dev'));
+app.use(helment());
+app.use(cors());
 
-	build(nuxt);
+async function initNuxt() { // Set up to deploy the nuxt frontend
+	const nuxt = new Nuxt(nuxtConfig);
+
+	if (nuxtConfig.dev)
+		await new Builder(nuxt).build();
+	else
+		await nuxt.ready();
+
+	app.use(nuxt.render);
 }
 
-app.listen(4200, () =>
-	console.log('loud and clear!')
+app.listen(process.env.PORT | 4200, () =>
+	console.log(`listening on ${process.env.PORT | 4200}`)
 );
+
+initNuxt();
 
 app.get('/test', (req, res) => {
 	res.end('OwO');
 });
-
-initNuxt();
